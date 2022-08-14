@@ -53,14 +53,22 @@ public class SelectExample {
 		sc.selectByIndex(10);
 		sleep();
 
-		// Selecting an element by value
-		sc.selectByValue("14");
-		sleep();
-		// Selecting an element by Visible text
-		sc.selectByVisibleText("Barbados");
-		sleep();
+		selectFromDropDown("14", driver.findElement(By.id("input-payment-country")));
+		selectFromDropDown("Barbados", driver.findElement(By.id("sheela")));
 		
-		Select trial=new Select(driver.findElement(By.cssSelector("#payment-new div:nth-of-type(1)")));
+		
+		// Selecting an element by value
+		try {
+			sc.selectByValue("14");
+			sleep();
+		} catch (Exception e) {
+			sc.selectByVisibleText("14");
+		}
+		// Selecting an element by Visible text
+
+		sleep();
+
+		Select trial = new Select(driver.findElement(By.cssSelector("#payment-new div:nth-of-type(1)")));
 		trial.selectByIndex(1);
 	}
 
@@ -75,6 +83,16 @@ public class SelectExample {
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}
+	}
+
+	private void selectFromDropDown(String value, WebElement wb) {
+		
+		Select sc = new Select(wb);
+		try {
+			sc.selectByValue(value);
+		} catch (Exception e) {
+			sc.selectByVisibleText(value);
 		}
 	}
 

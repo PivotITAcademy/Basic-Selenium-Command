@@ -7,6 +7,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
@@ -41,11 +43,11 @@ public class WaitExample {
 
 		// maxmise the screen
 		driver.manage().window().maximize();
-
-		// implicitly wait
-		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-		// Script time out
-		driver.manage().timeouts().setScriptTimeout(100, TimeUnit.SECONDS);
+		/*
+		 * // implicitly wait driver.manage().timeouts().implicitlyWait(10,
+		 * TimeUnit.SECONDS); // Script time out
+		 * driver.manage().timeouts().setScriptTimeout(100, TimeUnit.SECONDS);
+		 */
 
 	}
 
@@ -58,7 +60,21 @@ public class WaitExample {
 		driver.findElement(By.id("login")).click();
 
 		// Element is present on another page
-		WebElement loggedInUsername = driver.findElement(By.id("userName-value"));
+		WebDriverWait wait = new WebDriverWait(driver, 10);
+
+		WebElement xyz=driver.findElement(By.cssSelector("s"));
+		
+		WebElement loggedInUsername = wait
+				.until(ExpectedConditions.visibilityOfElementLocated(By.id("userName-value")));
+		
+		
+		wait.until(ExpectedConditions.alertIsPresent()).accept();
+		
+		wait.until(ExpectedConditions.elementToBeClickable(By.id("hdgdjsfs")));
+		
+		//wait.until(ExpectedConditions.)
+
+		// WebElement loggedInUsername = driver.findElement(By.id("userName-value"));
 		System.out.println(loggedInUsername.getText());
 
 	}
